@@ -1,6 +1,7 @@
 package in.ankurbansal.journalApp.controller;
 
 import in.ankurbansal.journalApp.entity.JournalEntry;
+import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Map;
 @RequestMapping("/_journal")
 public class JournalEntryController {
 
-    private final Map<String, JournalEntry> journalEntries = new HashMap<>();
+    private final Map<ObjectId, JournalEntry> journalEntries = new HashMap<>();
 
     @GetMapping
     public List<JournalEntry> getAll() {
@@ -26,18 +27,18 @@ public class JournalEntryController {
     }
 
     @GetMapping("id/{myId}")
-    public JournalEntry getJournalEntryById(@PathVariable Long myId) {
-        return journalEntries.get(myId.toString());
+    public JournalEntry getJournalEntryById(@PathVariable ObjectId myId) {
+        return journalEntries.get(myId);
     }
 
     @DeleteMapping("id/{myId}")
-    public JournalEntry deleteJournalEntryById(@PathVariable Long myId) {
-        return journalEntries.remove(myId.toString());
+    public JournalEntry deleteJournalEntryById(@PathVariable ObjectId myId) {
+        return journalEntries.remove(myId);
     }
 
     @PutMapping("id/{myId}")
-    public JournalEntry updateJournalById(@PathVariable Long myId, @RequestBody JournalEntry myEntry) {
-        return journalEntries.put(myId.toString(), myEntry);
+    public JournalEntry updateJournalById(@PathVariable ObjectId myId, @RequestBody JournalEntry myEntry) {
+        return journalEntries.put(myId, myEntry);
     }
 
 }
